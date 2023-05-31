@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "Gilroy";
+    src: url(../fonts/Gilroy-Semibold.ttf);
+}
+
+@font-face {
+    font-family: 'Merriweather';
+    src: url(../fonts/Merriweather-Black.ttf)
+}
+
+body {
+    background-color: black;
+    font-family: 'Gilroy', sans-serif;
+    color: white;
+}
+
+nav {
+    margin-left: 40px;
+    margin-top: 40px;
+    font-size: 20px;
+}
+
+.line {
+    border-left: 2px solid #ccc;
+    margin-left: 40px;
+    padding-left: 40px;
+}
+
+.main-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: white solid 2px;
+    border-radius: 15px;
+    margin: 50px;
+
+}
+
+.inputs {
+    border: white solid 2px;
+    border-radius: 25px;
+    height: 100vh;
+    width: 45%;
+    margin-top: 50px;
+}
+
+.order {
+    border: white solid 2px;
+    border-radius: 25px;
+    height: 100vh;
+    width: 45%;
+    margin-left: 50px;
+    margin-top: 50px;
+}
+
+.burger-order {
+    display: flex;
+    flex-wrap: wrap;
+    border: white solid 2px;
+    margin: 50px;
+    border-radius: 15px;
+    background: #211A16;
+}
+
+.burgers-img {
+    width: 45%;
+}
+
+.product-text-price-сount {
+    width: 45%;
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+.product-item-text {
+    font-size: 16px;
+    line-height: 140%;
+}
+
+.product-item-price {
+    font-size: 26px;
+    line-height: 39px;
+    margin-top: 15px;
+}
+
+.input-count {
+    width: 130px;
+    height: 45px;
+    border-radius: 8px 0px 0px 8px;
+}
+
+.form {
+    margin-left: 70px;
+    margin-top: 70px;
+
+}
+
+input {
+    width: 650px;
+    height: 75px;
+    border-radius: 15px;
+    margin-bottom: 80px;
+    margin-top: 20px;
+}
+
+.button-text {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.total-sum {
+    font-size: 22px;
+}
+
+.input-arrows {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.arrows {
+    display: flex;
+    flex-direction: column;
+    height: 47px;
+    border: white solid 1px;
+    margin-top: 20px;
+    cursor: pointer;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.product-item-action {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 23%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.shift-product-item-action {
+    width: 70%;
+}
+
+button {
+    background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
+    border-radius: 15px;
+    width: 220px;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    cursor: pointer;
+    outline: none;
+    color: black;
+}
