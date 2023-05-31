@@ -107,10 +107,10 @@ nav {
     line-height: 39px;
 }
 
-span {
+/* span {
     font-weight: 500;
     font-size: 20px;
-}
+} */
 
 button {
     background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
