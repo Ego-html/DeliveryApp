@@ -16,22 +16,24 @@ function addToCart(event) {
   let img = productItemPicture.children[0].src;
   if (localStorage.length !== 0) {
     let parse = JSON.parse(localStorage.burgers);
-    parse.push(
-      { price: currentPrice.innerHTML },
-      { discription: productItemText.innerHTML },
-      { name: productItemTitle.innerHTML },
-      { img: img }
-    );
+    parse.push({
+      price: currentPrice.innerHTML,
+      discription: productItemText.innerHTML,
+      name: productItemTitle.innerHTML,
+      img: img,
+    });
     localStorage.clear();
     localStorage.setItem("burgers", JSON.stringify(parse));
   } else {
     localStorage.setItem(
       "burgers",
       JSON.stringify([
-        { price: currentPrice.innerHTML },
-        { discription: productItemText.innerHTML },
-        { name: productItemTitle.innerHTML },
-        { img: img },
+        {
+          price: currentPrice.innerHTML,
+          discription: productItemText.innerHTML,
+          name: productItemTitle.innerHTML,
+          img: img,
+        },
       ])
     );
   }

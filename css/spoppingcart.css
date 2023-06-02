@@ -58,6 +58,7 @@ nav {
     width: 45%;
     margin-left: 50px;
     margin-top: 50px;
+    overflow: auto;
 }
 
 .burger-order {
@@ -77,6 +78,12 @@ nav {
     width: 45%;
     margin-top: 50px;
     margin-left: 20px;
+}
+
+.burger-name {
+    font-size: 24px;
+    line-height: 29px;
+    margin-bottom: 25px;
 }
 
 .product-item-text {
@@ -134,6 +141,11 @@ input {
     cursor: pointer;
     padding-left: 5px;
     padding-right: 5px;
+}
+
+.container-button {
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .product-item-action {
