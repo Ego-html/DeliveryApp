@@ -41,15 +41,55 @@ function renderingOrderBurgers(price, discription, name, imgburger) {
   let inputCount = document.createElement("input");
   inputArrows.appendChild(inputCount);
   inputCount.classList.add("input-count");
+  inputCount.value = 1;
   let arrows = document.createElement("arrows");
   inputArrows.appendChild(arrows);
   arrows.classList.add("arrows");
-  let arrowApp = document.createElement("span");
-  arrows.appendChild(arrowApp);
-  arrowApp.innerHTML = "&#x25B2";
+  let arrowUp = document.createElement("span");
+  arrows.appendChild(arrowUp);
+  arrowUp.innerHTML = "&#x25B2";
+  arrowUp.classList.add("arrow-up");
   let arrowDown = document.createElement("span");
   arrows.appendChild(arrowDown);
   arrowDown.innerHTML = "&#x25BC";
+  arrowDown.classList.add("arrow-down");
 
   order.appendChild(burgerOrder);
+}
+
+let arrowUp = document.getElementsByClassName("arrow-up");
+let arrowDown = document.getElementsByClassName("arrow-down");
+let inputCount = document.querySelector(".input-count");
+
+let count = 1;
+
+function getPlusCountOfBurgersOrder() {
+  count++;
+
+  inputCount.value = count;
+}
+
+function getMinusCountOfBurgersOrder() {
+  if (count == 1) {
+    count = 1;
+  } else {
+    count--;
+  }
+  inputCount.value = count;
+}
+
+for (let i = 0; i < arrowUp.length; i++) {
+  arrowUp[i].addEventListener("click", function (event) {
+    if (event.target.classList.contains("arrow-up")) {
+      getPlusCountOfBurgersOrder();
+    }
+  });
+}
+
+for (let i = 0; i < arrowDown.length; i++) {
+  arrowDown[i].addEventListener("click", function (event) {
+    if (event.target.classList.contains("arrow-down")) {
+      getMinusCountOfBurgersOrder();
+    }
+  });
 }

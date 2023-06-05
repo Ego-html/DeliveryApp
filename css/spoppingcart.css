@@ -176,3 +176,9 @@ button {
     outline: none;
     color: black;
 }
+
+.input-count {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
