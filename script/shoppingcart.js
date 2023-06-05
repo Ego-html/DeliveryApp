@@ -59,37 +59,18 @@ function renderingOrderBurgers(price, discription, name, imgburger) {
 
 let arrowUp = document.getElementsByClassName("arrow-up");
 let arrowDown = document.getElementsByClassName("arrow-down");
-let inputCount = document.querySelector(".input-count");
+let inputArrows = document.querySelectorAll(".input-arrows");
 
-let count = 1;
-
-function getPlusCountOfBurgersOrder() {
-  count++;
-
-  inputCount.value = count;
-}
-
-function getMinusCountOfBurgersOrder() {
-  if (count == 1) {
-    count = 1;
-  } else {
-    count--;
-  }
-  inputCount.value = count;
-}
-
-for (let i = 0; i < arrowUp.length; i++) {
-  arrowUp[i].addEventListener("click", function (event) {
+for (let i = 0; i < inputArrows.length; i++) {
+  inputArrows[i].addEventListener("click", function (event) {
     if (event.target.classList.contains("arrow-up")) {
-      getPlusCountOfBurgersOrder();
-    }
-  });
-}
-
-for (let i = 0; i < arrowDown.length; i++) {
-  arrowDown[i].addEventListener("click", function (event) {
-    if (event.target.classList.contains("arrow-down")) {
-      getMinusCountOfBurgersOrder();
+      inputArrows[i].firstChild.value =
+        Number(inputArrows[i].firstChild.value) + 1;
+    } else if (event.target.classList.contains("arrow-down")) {
+      if (inputArrows[i].firstChild.value > 1) {
+        inputArrows[i].firstChild.value =
+          Number(inputArrows[i].firstChild.value) - 1;
+      }
     }
   });
 }
