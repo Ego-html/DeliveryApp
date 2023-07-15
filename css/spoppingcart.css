@@ -210,8 +210,10 @@ input {
     width: 40%;
 }
 
-button {
-    background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
+#button {
+    cursor: not-allowed;
+    color: gray;
+    background: #343434;
     border-radius: 15px;
     width: 220px;
     height: 60px;
@@ -221,9 +223,23 @@ button {
     justify-content: center;
     align-items: center;
     border: 0;
-    cursor: pointer;
     outline: none;
-    color: black;
+}
+
+#button.button-disable {
+    cursor: not-allowed;
+    color: gray;
+    background: #343434;
+    border-radius: 15px;
+    width: 220px;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+    outline: none;
 }
 
 .input-count {
@@ -264,22 +280,89 @@ button {
 }
 
 .button-first-page {
-    margin-left: 300px;
+    background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
+    margin-left: -50px;
     margin-top: 40px;
     width: 165px;
-    height: 20px;
+    height: 50px;
+    border: 0;
     border-radius: 10px;
     font-family: 'Merriweather';
     color: black;
 }
 
 .order-more-burgers {
+    width: 220px;
+    height: 60px;
     left: 916px;
     top: 1000px;
     background: linear-gradient(95.61deg, #cfcfcf 0%, #333333 0%);
     font-size: 16px;
     color: white;
+    border: 0;
     border-radius: 8px;
     margin-left: 25px;
     margin-bottom: 25px;
+}
+
+#email-block {
+    position: relative;
+}
+
+.wrong-email {
+    border: 1px solid red;
+}
+
+.wrong-email.none {
+    border: none;
+}
+
+.message-incorrect-email {
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+    position: absolute;
+    top: 95px;
+    left: 7px;
+}
+
+.message-incorrect-email.none {
+    display: none;
+}
+
+.wrong-phone {
+    border: 1px solid red;
+}
+
+.message-incorrect-phone {
+    font-family: 'Courier New', Courier, monospace;
+    color: red;
+    position: absolute;
+    top: 95px;
+    left: 7px;
+}
+
+#phone-block {
+    position: relative;
+}
+
+.message-incorrect-phone.none {
+    display: none;
+}
+
+.wrong-phone.none {
+    border: none;
+}
+
+.correct-email {
+    display: none;
+
+}
+
+.phone-correct-number {
+    display: none;
+}
+
+#button.button-able {
+    background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
+    color: black;
 }

@@ -188,27 +188,105 @@ for (let i = 0; i < inputArrows.length; i++) {
 
 let order = document.querySelectorAll(".order");
 let buttonRemove = document.querySelectorAll(".button-remove");
-//Continue
-//===========================================================
-// let inputName = document.getElementById("user-name");
-// inputName = document.addEventListener("input", function (event) {
-//   let inputValue = event.target.value;
-//   let regex = /^[а-яА-Яa-zA-Z\s-]*$/;
-//   if (!regex.test(inputValue)) {
-//     event.target.value = inputValue.replace(/[^а-яА-Яa-zA-Z\s-]/g, "");
-//   }
-// });
+let ourInputs = document.getElementsByTagName("input");
+let button = document.getElementById("button");
 
-// let email = document.getElementById("email-user");
+//Continue Add disable option
+//======================================================================
 
-// email.addEventListener("blur", function (event) {
-//   let emailValue = event.target.value;
-//   let regex = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
-//   if (!regex.test(emailValue)) {
-//     email.value = "";
-//     email.placeholder = `An email address hasn't been entered properly`;
-//   }
-// });
+let inputName = document.getElementById("user-name");
+inputName.addEventListener("input", function () {
+  inputName.value = inputName.value.replace(/[^а-яА-Яa-zA-Z\s\-]/g, "");
+});
+let emailBlock = document.getElementById("email-block");
+let email = document.getElementById("user-email");
+let emailValue = null;
+let message = null;
+let messagePhone = null;
+// let hasBlurredEmail = false;
+email.addEventListener(
+  "blur",
+  function () {
+    let regexp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,3}$/;
+    if (!regexp.test(email.value) && email.value != "") {
+      email.classList.add("incorrect-data");
+      email.classList.add("wrong-email");
+      message = document.createElement("p");
+      emailBlock.appendChild(message);
+      message.classList.add("message-incorrect-email");
+      message.textContent = "Incorrect email";
+    } else {
+      emailValue = email.value;
+      email.classList.remove("wrong-email");
+      email.classList.remove("incorrect-data");
+      // message.classList.add("correct-email");
+      if (email.value == "") {
+        message.classList.add("correct-email");
+      }
+    }
+    // hasBlurredEmail = true;
+  },
+  true
+);
+
+let phone = document.getElementById("phone");
+phone.addEventListener("input", function () {
+  phone.value = phone.value.replace(/[^0-9\-+]/g, "");
+});
+let phoneValue = null;
+// let hasBlurredPhone = false;
+phone.addEventListener(
+  "blur",
+  function () {
+    let regexp = /^(\+\d{1}-\d{4}-\d{7})$/;
+    if (!regexp.test(phone.value) && phone.value != "") {
+      phone.classList.add("incorrect-data");
+      phone.classList.add("wrong-phone");
+      let phoneBlock = document.getElementById("phone-block");
+      messagePhone = document.createElement("p");
+      phoneBlock.appendChild(messagePhone);
+      messagePhone.classList.add("message-incorrect-phone");
+      messagePhone.textContent = "Incorrect phone";
+    } else {
+      phone.classList.remove("wrong-phone");
+      phone.classList.remove("incorrect-data");
+      // messagePhone.style.display = "none";
+      // phoneValue = phoneValue.value;
+    }
+    // hasBlurredPhone = true;
+  },
+  true
+);
+
+let adress = document.getElementById("address");
+adress.addEventListener("input", function () {
+  adress.value = adress.value.replace(/[^0-9a-zA-Zа-яА-Я\s.,-]+/g, "");
+});
+
+function checkInputValidation() {
+  let inputsElement = Array.from(ourInputs);
+  let checkValidationEmailAndAddress = inputsElement.some((x) =>
+    x.classList.contains("incorrect-data")
+  );
+  let checkAllInputsFilled = inputsElement.some((x) => x.value == "");
+  if (!checkAllInputsFilled != "" && !checkValidationEmailAndAddress) {
+    button.classList.add("button-able");
+  } else {
+    button.classList.remove("button-able");
+    button.classList.add("button-disable");
+  }
+}
+
+for (let i = 0; i < ourInputs.length; i++) {
+  {
+    ourInputs[i].addEventListener("change", function () {
+      checkInputValidation();
+      // hasBlurredEmail = false;
+      // hasBlurredPhone = false;
+    });
+  }
+}
+
 let newParse;
 
 for (let i = 0; i < order.length; i++) {
@@ -281,9 +359,11 @@ let userPhone = document.getElementById("phone");
 let userAddress = document.getElementById("address");
 
 let burgersName = document.getElementsByClassName("burger-name");
-let burgersOrder = [];
 
 submit.addEventListener("click", function () {
+  let burgersOrder = JSON.parse(localStorage.getItem("burgers"));
+  let countBurgersOrder = null;
+
   for (let i = 0; i < burgersName.length; i++) {
     let text = burgersName[i].nextSibling;
     let productItemPrice = text.nextSibling;
@@ -291,57 +371,15 @@ submit.addEventListener("click", function () {
     let counter = productItemPrice.nextSibling;
     let inputArrows = counter.firstChild;
     let inputCount = inputArrows.firstChild;
-    let countBurgersOrder = inputCount.value;
-
-    let priceAmount = price.match(/[0-9]+/g);
-
-    burgersOrder.push({
-      name: burgersName[i].innerHTML,
-      discription: text.innerHTML,
-      price: priceAmount[0],
-      ["count-burgers-order"]: countBurgersOrder,
-    });
+    countBurgersOrder = inputCount.value;
+    burgersOrder[i]["count-burgers-order"] = countBurgersOrder;
   }
-
-  let data = {
-    ["user-name"]: userName.value,
-    email: userEmail.value,
-    phone: userPhone.value,
-    adress: userAddress.value,
-    ["burgers-order"]: burgersOrder,
-  };
-
-  let burgers = JSON.stringify(data);
+  let burgers = JSON.stringify(burgersOrder);
   console.log(burgers);
-
-  let jsonHeaders = new Headers({
-    "Content-Type": "application/json",
-  });
-
-  fetch("/send-me-json", {
+  let jsonHeaders = new Headers({ "Content-Type": "application/json" });
+  fetch("URL", {
     method: "POST",
-    body: burgers,
     headers: jsonHeaders,
+    body: burgers,
   });
 });
-
-
-//
-// submit.addEventListener("click", function () {
-//   let burgersOrder = JSON.parse(localStorage.getItem("burgers"));
-//   let countBurgersOrder = null;
-
-//   for (let i = 0; i < burgersName.length; i++) {
-//     let text = burgersName[i].nextSibling;
-//     let productItemPrice = text.nextSibling;
-//     let price = productItemPrice.firstChild.innerHTML;
-//     let counter = productItemPrice.nextSibling;
-//     let inputArrows = counter.firstChild;
-//     let inputCount = inputArrows.firstChild;
-//     countBurgersOrder = inputCount.value;
-//   }
-//   burgersOrder.forEach(
-//     (count) => (count["count-burgers-orger"] = countBurgersOrder)
-//   );
-//   console.log(burgersOrder);
-// });
