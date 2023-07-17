@@ -226,7 +226,15 @@ input {
     outline: none;
 }
 
-#button.button-disable {
+#button.button-able {
+    background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
+    color: black;
+    cursor: pointer;
+}
+
+
+
+#button.button-submit.disable {
     cursor: not-allowed;
     color: gray;
     background: #343434;
@@ -292,6 +300,7 @@ input {
 }
 
 .order-more-burgers {
+    cursor: pointer;
     width: 220px;
     height: 60px;
     left: 916px;
@@ -303,6 +312,11 @@ input {
     border-radius: 8px;
     margin-left: 25px;
     margin-bottom: 25px;
+    transition: transform 0.5s;
+}
+
+.order-more-burgers:hover {
+    transform: scale(1.1);
 }
 
 #email-block {
@@ -365,4 +379,5 @@ input {
 #button.button-able {
     background: linear-gradient(95.61deg, #DA8023 0%, #E2B438 100%);
     color: black;
+    cursor: pointer;
 }

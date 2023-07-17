@@ -191,9 +191,6 @@ let buttonRemove = document.querySelectorAll(".button-remove");
 let ourInputs = document.getElementsByTagName("input");
 let button = document.getElementById("button");
 
-//Continue Add disable option
-//======================================================================
-
 let inputName = document.getElementById("user-name");
 inputName.addEventListener("input", function () {
   inputName.value = inputName.value.replace(/[^а-яА-Яa-zA-Z\s\-]/g, "");
@@ -203,7 +200,6 @@ let email = document.getElementById("user-email");
 let emailValue = null;
 let message = null;
 let messagePhone = null;
-// let hasBlurredEmail = false;
 email.addEventListener(
   "blur",
   function () {
@@ -215,16 +211,20 @@ email.addEventListener(
       emailBlock.appendChild(message);
       message.classList.add("message-incorrect-email");
       message.textContent = "Incorrect email";
+      checkInputValidation();
     } else {
       emailValue = email.value;
       email.classList.remove("wrong-email");
+      let messages = document.getElementsByClassName("message-incorrect-email");
+      for (let i = 0; i < messages.length; i++) {
+        messages[i].textContent = "";
+      }
       email.classList.remove("incorrect-data");
-      // message.classList.add("correct-email");
       if (email.value == "") {
         message.classList.add("correct-email");
       }
     }
-    // hasBlurredEmail = true;
+    checkInputValidation();
   },
   true
 );
@@ -234,7 +234,6 @@ phone.addEventListener("input", function () {
   phone.value = phone.value.replace(/[^0-9\-+]/g, "");
 });
 let phoneValue = null;
-// let hasBlurredPhone = false;
 phone.addEventListener(
   "blur",
   function () {
@@ -247,13 +246,18 @@ phone.addEventListener(
       phoneBlock.appendChild(messagePhone);
       messagePhone.classList.add("message-incorrect-phone");
       messagePhone.textContent = "Incorrect phone";
+      checkInputValidation();
     } else {
       phone.classList.remove("wrong-phone");
+      let messagesPhone = document.getElementsByClassName(
+        "message-incorrect-phone"
+      );
+      for (let i = 0; i < messagesPhone.length; i++) {
+        messagesPhone[i].textContent = "";
+      }
       phone.classList.remove("incorrect-data");
-      // messagePhone.style.display = "none";
-      // phoneValue = phoneValue.value;
+      checkInputValidation();
     }
-    // hasBlurredPhone = true;
   },
   true
 );
@@ -263,13 +267,20 @@ adress.addEventListener("input", function () {
   adress.value = adress.value.replace(/[^0-9a-zA-Zа-яА-Я\s.,-]+/g, "");
 });
 
+let checkOrder = null;
 function checkInputValidation() {
   let inputsElement = Array.from(ourInputs);
+  checkOrder = JSON.parse(localStorage.getItem("burgers"));
+  console.log(checkOrder.length);
   let checkValidationEmailAndAddress = inputsElement.some((x) =>
     x.classList.contains("incorrect-data")
   );
   let checkAllInputsFilled = inputsElement.some((x) => x.value == "");
-  if (!checkAllInputsFilled != "" && !checkValidationEmailAndAddress) {
+  if (
+    !checkAllInputsFilled != "" &&
+    !checkValidationEmailAndAddress &&
+    checkOrder.length != 0
+  ) {
     button.classList.add("button-able");
   } else {
     button.classList.remove("button-able");
@@ -281,8 +292,6 @@ for (let i = 0; i < ourInputs.length; i++) {
   {
     ourInputs[i].addEventListener("change", function () {
       checkInputValidation();
-      // hasBlurredEmail = false;
-      // hasBlurredPhone = false;
     });
   }
 }
@@ -313,6 +322,8 @@ for (let i = 0; i < order.length; i++) {
       localStorage.setItem("burgers", JSON.stringify(newParse));
       if (newParse.length == 0) {
         displayBasket();
+        button.classList.remove("button-able");
+        button.classList.add("disable");
       }
     }
   });
@@ -361,29 +372,25 @@ let userAddress = document.getElementById("address");
 let burgersName = document.getElementsByClassName("burger-name");
 
 submit.addEventListener("click", function () {
-  let burgersOrder = JSON.parse(localStorage.getItem("burgers"));
-  let countBurgersOrder = null;
-
-  for (let i = 0; i < burgersName.length; i++) {
-    let text = burgersName[i].nextSibling;
-    let productItemPrice = text.nextSibling;
-    let price = productItemPrice.firstChild.innerHTML;
-    let counter = productItemPrice.nextSibling;
-    let inputArrows = counter.firstChild;
-    let inputCount = inputArrows.firstChild;
-    countBurgersOrder = inputCount.value;
-    burgersOrder[i]["count-burgers-order"] = countBurgersOrder;
+  if (button.classList.contains("button-able") && checkOrder.length > 0) {
+    let burgersOrder = JSON.parse(localStorage.getItem("burgers"));
+    let countBurgersOrder = null;
+    for (let i = 0; i < burgersName.length; i++) {
+      let text = burgersName[i].nextSibling;
+      let productItemPrice = text.nextSibling;
+      let price = productItemPrice.firstChild.innerHTML;
+      let counter = productItemPrice.nextSibling;
+      let inputArrows = counter.firstChild;
+      let inputCount = inputArrows.firstChild;
+      countBurgersOrder = inputCount.value;
+      burgersOrder[i]["count-burgers-order"] = countBurgersOrder;
+    }
+    let burgers = JSON.stringify(burgersOrder);
+    let jsonHeaders = new Headers({ "Content-Type": "application/json" });
+    fetch("./server has not yet written", {
+      method: "POST",
+      headers: jsonHeaders,
+      body: burgers,
+    });
   }
-  let burgers = JSON.stringify(burgersOrder);
-  console.log(burgers);
-  let jsonHeaders = new Headers({ "Content-Type": "application/json" });
-  fetch("URL", {
-    method: "POST",
-    headers: jsonHeaders,
-    body: burgers,
-  });
 });
-
-//123454543543534
-
-
